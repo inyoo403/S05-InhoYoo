@@ -19,6 +19,20 @@ const COLORS = {
   EVEN: "lightblue",
 } as const;
 
+function updateTitle(n: number) {
+  document.title = TEXT.TITLE + n;
+}
+
+function updateColor(n: number) {
+  document.body.style.backgroundColor = n % 2 ? COLORS.ODD : COLORS.EVEN;
+}
+
+function updateDisplay(valueEl: HTMLElement, n: number) {
+  valueEl.textContent = String(n);
+  updateTitle(n);
+  updateColor(n);
+}
+
 function setup() {
   // Create the HTML for the counter
   document.body.innerHTML = `
@@ -37,34 +51,17 @@ function setup() {
   // Check if any element is missing, then exit the function
   if (!btnInc || !btnDec || !btnReset || !valueEl) return;
 
-  // Add click event to the increment button
   btnInc.addEventListener("click", () => {
     counter++;
-    valueEl.textContent = String(counter);
-    document.title = TEXT.TITLE + counter;
-    document.body.style.backgroundColor = counter % 2
-      ? COLORS.ODD
-      : COLORS.EVEN;
+    updateDisplay(valueEl, counter);
   });
-
-  // Add click event to the decrement button
   btnDec.addEventListener("click", () => {
     counter--;
-    valueEl.textContent = String(counter);
-    document.title = TEXT.TITLE + counter;
-    document.body.style.backgroundColor = counter % 2
-      ? COLORS.ODD
-      : COLORS.EVEN;
+    updateDisplay(valueEl, counter);
   });
-
-  // Add click event to the reset button
   btnReset.addEventListener("click", () => {
     counter = 0;
-    valueEl.textContent = String(counter);
-    document.title = TEXT.TITLE + counter;
-    document.body.style.backgroundColor = counter % 2
-      ? COLORS.ODD
-      : COLORS.EVEN;
+    updateDisplay(valueEl, counter);
   });
 }
 
